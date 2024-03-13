@@ -60,8 +60,8 @@ read -p "${azul}[!] Insira a URL para enumerar subdomínios: " input_url
 echo -e "${azul}[!] Enumerando subdomínios de $input_url"
 
 # Utiliza o subfinder para buscar os subdomínios da URL
-subdomains=$(subfinder -d "$input_url" | assetfinder -subs-only -all -t 100)
-
+subdomains=$(subfinder -d "$input_url" | assetfinder -subs-only -t 100)
+echo "$subdomains" >> temp/subdomains_full.txt
 # Testa se foram encontrados subdomínios para a URL informada
 if [ -z "$subdomains" ]; then
     echo "Nenhum subdomínio encontrado para $input_url"
