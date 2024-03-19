@@ -3,11 +3,10 @@
 # Definindo cores
 vermelho='\033[0;31m'
 verde='\033[0;32m'
-azul='\033[0;34m'
 sem_cor='\033[0m'
 # Função para exibir o banner
 exibir_banner() {
-    echo -e "\e[1;34m"
+    echo -e "${verde}"
     echo "             (    (                 )      )   (      "  
     echo "    (  (      )\ ) )\ )    *   )  ( /(   ( /(   )\ )  " 
     echo "    )\))(   (()/((()/(   )  /(  )\())  )\()) (()/(  "
@@ -17,22 +16,16 @@ exibir_banner() {
     echo "   \ \/\/ / \__ \\__ \    | |   | (_) || (_) || |__   "
     echo "    \_/\_/  |___/|___/    |_|    \___/  \___/ |____|  "
     echo "   ____       _   _            _     _ _              "
-    echo -e "\e[0m"
+    echo -e "${verde}"
     echo "==============================================================="
     echo "                 Bem vindo a WSS Pentest Tool                  "
     echo "==============================================================="
     echo "   Script desenvolvido por Luciano V, Italo O, Carol G         "
     echo "==============================================================="
+    echo -e "${verde}"
 }
 
-testconnectivity() {
-	if nc -zw1 google.com 443 2>/dev/null; then
-		echo -e "Connection: ${bgreen}OK${reset}"
-	else
-		echo -e "${vermelho}[!] Por favor verifique a sua conexão, tente novamente...${reset}"
-		exit 1
-	fi
-}
+exibir_banner
 
 #Função para montar a estrutura de diretórios
 monta_diretorios() {
@@ -40,7 +33,7 @@ monta_diretorios() {
 }
 
 # Chamar a função para exibir o banner
-exibir_banner
+
 
 ##testconnectivity
 
@@ -54,10 +47,10 @@ if ! command -v subfinder &> /dev/null; then
 fi
 
 # Solicita ao usuário a inserção da URL para enumerar subdomínios
-read -p "${azul}[!] Insira a URL para enumerar subdomínios: " input_url
+read -p "${verde}[!] Insira a URL para enumerar subdomínios: " input_url
 
 # Mostra a mensagem "Enumerando subdomínios..."
-echo -e "${azul}[!] Enumerando subdomínios de $input_url"
+echo -e "${verde}[!] Enumerando subdomínios de $input_url"
 
 # Utiliza o subfinder para buscar os subdomínios da URL
 subdomains=$(subfinder -d "$input_url" | assetfinder -subs-only -t 100)
@@ -66,7 +59,7 @@ echo "$subdomains" >> temp/subdomains_full.txt
 if [ -z "$subdomains" ]; then
     echo "Nenhum subdomínio encontrado para $input_url"
 else
-    echo "${azul}[!] Buscando subdominios..."
+    echo "${verde}[!] Buscando subdominios..."
     # Grava os subdomínios no arquivo subdomains.txt
     echo "$subdomains" >> temp/subdomains_full.txt
 fi 
